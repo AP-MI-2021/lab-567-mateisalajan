@@ -59,15 +59,11 @@ def pretMinimGen(lista):
     l_preturi_min = []
 
     for gen in l_genuri:
+        pret_min = getPret(lista[0])
         for vanzare in lista:
             if getGen_carte(vanzare) == gen:
-                pret_min = getPret(vanzare)
-                break
-
-    for vanzare in lista:
-        if (getGen_carte(vanzare) == gen) and (getPret(vanzare) < pret_min):
-            pret_min = getPret(vanzare)
-
-    l_preturi_min.append(gen, pret_min)
+                if pret_min >= getPret(vanzare):
+                    pret_min = getPret(vanzare)
+        l_preturi_min.append(pret_min)
 
     return l_preturi_min

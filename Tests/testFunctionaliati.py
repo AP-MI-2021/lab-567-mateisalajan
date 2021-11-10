@@ -1,4 +1,4 @@
-from Domain.vanzare import getPret, getGen_carte, getTitlu_carte
+from Domain.vanzare import getPret, getGen_carte, getTitlu_carte, creeazaVanzare
 from Logic.CRUD import adaugareVanzare
 from Logic.functionalitati import discount, modificare_gen, pretMinimGen
 
@@ -44,20 +44,20 @@ def testModificare_gen():
 
 def getData():
     return [
-        adaugareVanzare("1", "Ion", "gen1", 30, "silver"),
-        adaugareVanzare("2", "Poezii", "gen2", 27, "none"),
-        adaugareVanzare("3", "Teatru", "gen1", 10.5, "gold"),
-        adaugareVanzare("4", "titlu4", "gen3", 17, "silver"),
-        adaugareVanzare("5", "titlu5", "gen3", 22.99, "none"),
-        adaugareVanzare("6", "titlu6", "gen2", 50, "gold")
+        creeazaVanzare("1", "Ion", "gen1", 30, "silver"),
+        creeazaVanzare("2", "Poezii", "gen2", 27, "none"),
+        creeazaVanzare("3", "Teatru", "gen1", 10.5, "gold"),
+        creeazaVanzare("4", "titlu4", "gen3", 17, "silver"),
+        creeazaVanzare("5", "titlu5", "gen3", 22.99, "none"),
+        creeazaVanzare("6", "titlu6", "gen2", 50, "gold")
     ]
 
 def testPretMinimGen():
     lista = getData()
     l_preturi_min = pretMinimGen(lista)
     assert len(l_preturi_min) == 3
-    assert l_preturi_min[0][2] == 10.5
-    assert l_preturi_min[5][1] == 27
+    assert l_preturi_min[0] == 10.5
+    assert l_preturi_min[1] == 27
 
     lista_2 = []
     try:
