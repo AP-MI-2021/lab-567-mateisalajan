@@ -41,3 +41,33 @@ def modificare_gen(lista, id_carte, titlu_carte, gen_carte):
     vanzare_noua = creeazaVanzare(id_carte, titlu_carte, gen_carte, getPret(vanzare), getTip_reducere_client(vanzare))
     lista_modificata = actualizare(lista, vanzare_noua)
     return  lista_modificata
+
+def pretMinimGen(lista):
+    '''
+    determina pretul minim pentru fiecare gen
+    :param lista: lista de vanzari
+    :return: o lista de tupluri, care contine un gen din lista si pretul minim pentru acest gen
+    '''
+    if len(lista) == 0:
+        raise ValueError("Lista nu poate fi goala")
+
+    l_genuri = []
+    for vanzare in lista:
+        if getGen_carte(vanzare) not in l_genuri:
+            l_genuri.append(getGen_carte(vanzare))
+
+    l_preturi_min = []
+
+    for gen in l_genuri:
+        for vanzare in lista:
+            if getGen_carte(vanzare) == gen:
+                pret_min = getPret(vanzare)
+                break
+
+    for vanzare in lista:
+        if (getGen_carte(vanzare) == gen) and (getPret(vanzare) < pret_min):
+            pret_min = getPret(vanzare)
+
+    l_preturi_min.append(gen, pret_min)
+
+    return l_preturi_min

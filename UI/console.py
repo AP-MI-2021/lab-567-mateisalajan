@@ -1,6 +1,6 @@
 from Domain.vanzare import toString
 from Logic.CRUD import adaugareVanzare, stergereVanzare, modificaVanzare
-from Logic.functionalitati import discount, modificare_gen
+from Logic.functionalitati import discount, modificare_gen, pretMinimGen
 
 
 def printMenu():
@@ -9,8 +9,10 @@ def printMenu():
     print("3. Modificare vanzare")
     print("4. Aplicarea discount-ului(5% pentru reducerile silver si 10% pentru reducerile gold)")
     print("5. Modificarea genului pentru un titlu dat")
+    print("6. Determinarea prețului minim pentru fiecare gen")
     print("a. Afisare vanzari")
     print("x. Iesire")
+
 
 def uiAdaugaVanzare(l):
     id = input("Dati id-ul: ")
@@ -20,9 +22,11 @@ def uiAdaugaVanzare(l):
     tip_reducere_client = input("Dati tipul de reducere: ")
     return adaugareVanzare(id, titlu_carte, gen_carte, pret, tip_reducere_client, l)
 
+
 def uiStergeVanzare(l):
     id = input("Dati id-ul vanzarii de sters: ")
     return stergereVanzare(id, l)
+
 
 def uiModificaVanzare(l):
     id = input("Dati id-ul vanzarii de modificat: ")
@@ -32,9 +36,11 @@ def uiModificaVanzare(l):
     tip_reducere_client = input("Dati noul tipul de reducere: ")
     return modificaVanzare(id, titlu_carte, gen_carte, pret, tip_reducere_client, l)
 
+
 def showAll(l):
     for vanzare in l:
         print(toString(vanzare))
+
 
 def uiDiscount(l):
     lista_noua = discount(l)
@@ -42,6 +48,7 @@ def uiDiscount(l):
 
     for vanzare in lista_noua:
         print(toString(vanzare))
+
 
 def uiModificare_gen(l):
     try:
@@ -55,6 +62,18 @@ def uiModificare_gen(l):
     except ValueError as ve:
         print("Eroare: ", ve)
     return l
+
+
+def uiPretMinimGen(l):
+    try:
+        l_pret_min = pretMinimGen(l)
+        for pret in l_pret_min:
+            print('Pretul minim pentru genul {pret[0]} este {pret[1]}')
+        return l
+    except ValueError as ve:
+        print("Eroare: ", ve)
+    return  l
+
 
 def runMenu(lista):
     while True:
@@ -71,6 +90,8 @@ def runMenu(lista):
             lista = uiDiscount(lista)
         elif optiune == "5":
             lista = uiModificare_gen(lista)
+        elif optiune == "6":
+            lista = uiPretMinimGen(lista)
         elif optiune == "a":
             showAll(lista)
         elif optiune == "x":
