@@ -1,6 +1,6 @@
 from Domain.vanzare import toString
 from Logic.CRUD import adaugareVanzare, stergereVanzare, modificaVanzare
-from Logic.functionalitati import discount, modificare_gen, pretMinimGen
+from Logic.functionalitati import discount, modificare_gen, pretMinimGen, ordonare, nrTitluriDistincte, redo, undo
 
 
 def printMenu():
@@ -10,6 +10,10 @@ def printMenu():
     print("4. Aplicarea discount-ului(5% pentru reducerile silver si 10% pentru reducerile gold)")
     print("5. Modificarea genului pentru un titlu dat")
     print("6. Determinarea prețului minim pentru fiecare gen")
+    print("7.Ordonarea unei liste de vanzari crescator dupa pret")
+    print("8.Afișarea numărului de titluri distincte pentru fiecare gen")
+    print("u.Tasta pentru undo")
+    print("r.Tasta pentru redo")
     print("a. Afisare vanzari")
     print("x. Iesire")
 
@@ -74,8 +78,36 @@ def uiPretMinimGen(l):
         print("Eroare: ", ve)
     return  l
 
+def uiOrdonare(l):
+    try:
+        l = ordonare(l)
+        showAll(l)
+    except ValueError as ve:
+        print('Eroare: ', ve)
+
+    return l
+
+def uiTitluriDistincte(lista_vanzari):
+    try:
+        lista = nrTitluriDistincte(lista_vanzari)
+        for tuplu in lista:
+            print(f'Numarul de titluri distincte pentru genul {tuplu[0]} este {tuplu[1]}')
+    except ValueError as ve:
+        print('Eroare: ', ve)
+
+    return lista_vanzari
+
+def uiUndo(lista_versiuni, versiunea_curenta):
+    return undo(lista_versiuni, versiunea_curenta)
+
+def uiRedo(lista_versiuni, versiunea_curenta):
+    return redo(lista_versiuni, versiunea_curenta)
 
 def runMenu(lista):
+
+    lista_versiuni = [lista]
+    versiunea_curenta = 0
+
     while True:
         printMenu()
         optiune = input("Dati optiunea: ")
@@ -92,6 +124,22 @@ def runMenu(lista):
             lista = uiModificare_gen(lista)
         elif optiune == "6":
             lista = uiPretMinimGen(lista)
+        elif optiune == '7':
+            lista = uiOrdonare(lista)
+        elif optiune == '8':
+            lista = uiTitluriDistincte(lista)
+        elif optiune == 'u':
+            if versiunea_curenta < 1:
+                print('Nu se mai poate face undo')
+            else:
+                lista, versiune_curenta = uiUndo(lista_versiuni, versiunea_curenta)
+                if lista == []:
+                    print(f'Lista este goala {lista}')
+        elif optiune == 'r':
+            if versiunea_curenta == len(lista_versiuni) - 1:
+                print('Nu se mai poate face redo')
+            else:
+                lista, versiunea_curenta = uiRedo(lista_versiuni, versiunea_curenta)
         elif optiune == "a":
             showAll(lista)
         elif optiune == "x":
