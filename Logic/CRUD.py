@@ -12,7 +12,7 @@ def adaugareVanzare(id, titlu_carte, gen_carte, pret, tip_reducere_client, l):
     :param l: lista de vanzari
     :return: o lista continand atat elementele vechi, cat si noua vanzare
     '''
-    vanzare  = creeazaVanzare(id, titlu_carte, gen_carte, pret, tip_reducere_client)
+    vanzare = creeazaVanzare(id, titlu_carte, gen_carte, pret, tip_reducere_client)
     return l + [vanzare]
 
 def stergereVanzare(id, l):

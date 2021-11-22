@@ -11,7 +11,7 @@ def main_line(l):
     while True:
         giveString = input()
         if giveString == "ajutor":
-            print("adugare , id, titlu_carte, gen_carte, pret, tip_reducere_client")
+            print("adugare, id, titlu_carte, gen_carte, pret, tip_reducere_client")
             print("stergere, id")
             print("showAll")
             print("Iesire")
@@ -24,12 +24,12 @@ def main_line(l):
                     opt = optiune.split(",")
                     if(opt[0] == "adaugare"):
                         try:
-                            lista = adaugareVanzare(opt[1], opt[2], opt[3], opt[4], opt[5], lista)
+                            l = adaugareVanzare(opt[1], opt[2], opt[3], opt[4], opt[5], l)
                         except ValueError as ve:
                             print("Eroare: {}".format(ve))
                     elif opt[0] == "showAll":
-                        showAll(lista)
+                        showAll(l)
                     elif opt[0] == "stergere":
-                        lista = stergereVanzare(opt[1], lista)
+                        l = stergereVanzare(opt[1], l)
                     else:
                         print("Optiune gresita! Scrieti -ajutor- pentru a vedea optiunile")

@@ -47,18 +47,18 @@ def getData():
     return [
         creeazaVanzare("1", "Ion", "gen1", 30, "silver"),
         creeazaVanzare("2", "Poezii", "gen2", 27, "none"),
-        creeazaVanzare("3", "Teatru", "gen1", 10.5, "gold"),
-        creeazaVanzare("4", "titlu4", "gen3", 17, "silver"),
+        creeazaVanzare("3", "Teatru", "gen3", 10.5, "gold"),
+        creeazaVanzare("4", "titlu4", "gen1", 17, "silver"),
         creeazaVanzare("5", "titlu5", "gen3", 22.99, "none"),
         creeazaVanzare("6", "titlu6", "gen2", 50, "gold")
     ]
 
 def testPretMinimGen():
     lista = getData()
-    l_preturi_min = pretMinimGen(lista)
-    assert len(l_preturi_min) == 3
-    assert l_preturi_min[0] == 10.5
-    assert l_preturi_min[1] == 27
+    lista_preturi_minime = pretMinimGen(lista)
+    assert lista_preturi_minime[0][1] == 17
+    assert lista_preturi_minime[2][1] == 10.5
+    assert len(lista_preturi_minime) == 3
 
     lista_2 = []
     try:
