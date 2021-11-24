@@ -12,8 +12,32 @@ def adaugareVanzare(id, titlu_carte, gen_carte, pret, tip_reducere_client, l):
     :param l: lista de vanzari
     :return: o lista continand atat elementele vechi, cat si noua vanzare
     '''
+
+    if read(l, id) is not None:
+        raise ValueError('Exista deja o carte care are id-ul dat')
+
     vanzare = creeazaVanzare(id, titlu_carte, gen_carte, pret, tip_reducere_client)
     return l + [vanzare]
+
+def read(lista_vanzari, id):
+    '''
+    Citeste o vanzare din lista de vanzari.
+    :param lista_vanzari: lista de vanzari
+    :param id: id-ul vanzare
+    :return: vanzare daca aceasta exista in lista de vanzari sau lista de vanzari daca aceasta nu exista
+    '''
+
+    if not id:
+        return lista_vanzari
+
+    vanzare_id = None
+    for vanzare in lista_vanzari:
+        if getId(vanzare) == id:
+            vanzare_id = vanzare
+
+    if vanzare_id:
+        return vanzare_id
+
 
 def stergereVanzare(id, l):
     '''

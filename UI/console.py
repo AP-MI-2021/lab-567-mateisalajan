@@ -138,7 +138,7 @@ def runUi(lista_vanzari):
 
     while True:
         printMenu()
-        optiune = input('Dati optiune ')
+        optiune = input('Dati optiune: ')
         if optiune == '1':
             lista_vanzari, lista_versiuni, versiunea_curenta = uiCrud(lista_vanzari, lista_versiuni, versiunea_curenta)
         elif optiune == '2':
